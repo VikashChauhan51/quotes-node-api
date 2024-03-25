@@ -1,8 +1,8 @@
-interface QuoteDetails extends Quote {
+export interface QuoteDetails extends Quote {
     id: string;
   }
   
-  interface Quote {
+  export interface Quote {
     message: string;
   }
   

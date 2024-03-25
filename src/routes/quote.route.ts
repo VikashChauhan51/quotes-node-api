@@ -6,21 +6,158 @@ import {
   updateQuote,
   deleteQuote,
 } from "../controllers/quote.controller";
+
 const quoteRoutes = express.Router();
 
-/* GET quotes. */
-quoteRoutes.get("/quotes", getQuotes);
 
-/* GET quote. */
-quoteRoutes.get("/quote:id", getQuote);
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Quote:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: The quote message
+ *       required:
+ *         - message
+ */
 
-/* POST quote */
-quoteRoutes.post("/quote", createQuote);
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     QuoteDetails:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The quote unique id
+ *         message:
+ *           type: string
+ *           description: The quote message
+ *       required:
+ *         - id
+ *         - message
+ */
 
-/* PUT quote */
-quoteRoutes.put("/quote:id", updateQuote);
 
-/* DELETE quote */
-quoteRoutes.delete("/quote:id", deleteQuote);
+
+/**
+ * @swagger
+ * /api/v1/quotes:
+ *   get:
+ *     tags: [Quotes]
+ *     summary: Get all quotes
+ *     responses:
+ *       200:
+ *         description: A list of quotes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Quote'
+ */
+quoteRoutes.get("/v1/quotes", getQuotes);
+
+/**
+ * @swagger
+ * /api/v1/quote/{id}:
+ *   get:
+ *     tags: [Quotes]
+ *     summary: Get a quote by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The quote ID
+ *     responses:
+ *       200:
+ *         description: The quote
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/QuoteDetails'
+ *       404:
+ *         description: The quote was not found
+ */
+quoteRoutes.get("/v1/quote/:id", getQuote);
+
+
+/**
+ * @swagger
+ * /api/v1/quote:
+ *   post:
+ *     tags: [Quotes]
+ *     summary: Create a new quote
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Quote'
+ *     responses:
+ *       200:
+ *         description: The created quote
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/QuoteDetails'
+ */
+quoteRoutes.post("/v1/quote", createQuote);
+
+/**
+ * @swagger
+ * /api/v1/quote/{id}:
+ *   put:
+ *     tags: [Quotes]
+ *     summary: Update a quote by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The quote ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Quote'
+ *     responses:
+ *       204:
+ *         description: The quote was updated successfully
+ *       404:
+ *         description: The quote was not found
+ */
+quoteRoutes.put("/v1/quote/:id", updateQuote);
+
+/**
+ * @swagger
+ * /api/v1/quote/{id}:
+ *   delete:
+ *     tags: [Quotes]
+ *     summary: Delete a quote by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The quote ID
+ *     responses:
+ *       204:
+ *         description: The quote was deleted successfully
+ *       404:
+ *         description: The quote was not found
+ */
+quoteRoutes.delete("/v1/quote/:id", deleteQuote);
+
+
 
 export default quoteRoutes;
