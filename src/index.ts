@@ -1,21 +1,24 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/error-handler";
-import quoteRoutes from './routes/quote.route';
-
+import quoteRoutes from "./routes/quote.route";
+import logger from "./configs/logger.config";
+import { requestLogger } from "./middlewares/request-logger";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-//configure routes
-app.use('/api/', quoteRoutes);
-
 // configure middlewares
+app.use(requestLogger);
 app.use(errorHandler);
+
+//configure routes
+app.use("/api/", quoteRoutes);
+
 
 //start server
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  logger.info(`[server]: Server is running at http://localhost:${port}`);
 });

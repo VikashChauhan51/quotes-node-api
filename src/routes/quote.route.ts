@@ -6,21 +6,21 @@ import {
   updateQuote,
   deleteQuote,
 } from "../controllers/quote.controller";
-const router = express.Router();
+const quoteRoutes = express.Router();
 
 /* GET quotes. */
-router.get("/quotes", getQuotes);
+quoteRoutes.get("/quotes", getQuotes);
 
 /* GET quote. */
-router.get("/quote:id", getQuote);
+quoteRoutes.get("/quote:id", getQuote);
 
 /* POST quote */
-router.post("/quote", createQuote);
+quoteRoutes.post("/quote", createQuote);
 
 /* PUT quote */
-router.put("/quote:id", updateQuote);
+quoteRoutes.put("/quote:id", updateQuote);
 
 /* DELETE quote */
-router.delete("/quote:id", deleteQuote);
+quoteRoutes.delete("/quote:id", deleteQuote);
 
-export default router;
+export default quoteRoutes;

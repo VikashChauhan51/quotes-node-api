@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 const getQuotes = async (req: Request, res: Response) => {
   //TODO
-  return res.send(200).json({data:[]});
+  return res.send({data:[]});
 };
 
 
