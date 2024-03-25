@@ -1,13 +1,15 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/error-handler";
-import quoteRoutes from "./routes/quote.route";
 import logger from "./configs/logger.config";
 import { requestLogger } from "./middlewares/request-logger";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import cors from 'cors';
 import bodyParser  from 'body-parser';
+
+import quoteRoutes from "./routes/quote.route";
+import homeRoutes from "./routes/home.route";
 
 const options = {
   definition: {
@@ -40,6 +42,7 @@ app.use(bodyParser.json());
 
 //configure routes
 app.use(quoteRoutes);
+app.use(homeRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Enable CORS for all routes
