@@ -46,7 +46,7 @@ const quoteRoutes = express.Router();
 
 /**
  * @swagger
- * /api/v1/quotes:
+ * /api/v1/quote:
  *   get:
  *     tags: [Quotes]
  *     summary: Get all quotes
@@ -60,11 +60,11 @@ const quoteRoutes = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Quote'
  */
-quoteRoutes.get("/v1/quotes", getQuotes);
+quoteRoutes.get("/api/v1/quote", getQuotes);
 
 /**
  * @swagger
- * /api/v1/quote/{id}:
+ * /api/v1/{id}/quote:
  *   get:
  *     tags: [Quotes]
  *     summary: Get a quote by ID
@@ -85,7 +85,7 @@ quoteRoutes.get("/v1/quotes", getQuotes);
  *       404:
  *         description: The quote was not found
  */
-quoteRoutes.get("/v1/quote/:id", getQuote);
+quoteRoutes.get("/api/v1/:id/quote", getQuote);
 
 
 /**
@@ -108,11 +108,11 @@ quoteRoutes.get("/v1/quote/:id", getQuote);
  *             schema:
  *               $ref: '#/components/schemas/QuoteDetails'
  */
-quoteRoutes.post("/v1/quote", createQuote);
+quoteRoutes.post("/api/v1/quote", createQuote);
 
 /**
  * @swagger
- * /api/v1/quote/{id}:
+ * /api/v1/{id}/quote:
  *   put:
  *     tags: [Quotes]
  *     summary: Update a quote by ID
@@ -135,11 +135,11 @@ quoteRoutes.post("/v1/quote", createQuote);
  *       404:
  *         description: The quote was not found
  */
-quoteRoutes.put("/v1/quote/:id", updateQuote);
+quoteRoutes.put("/api/v1/:id/quote", updateQuote);
 
 /**
  * @swagger
- * /api/v1/quote/{id}:
+ * /api/v1/{id}/quote:
  *   delete:
  *     tags: [Quotes]
  *     summary: Delete a quote by ID
@@ -156,8 +156,6 @@ quoteRoutes.put("/v1/quote/:id", updateQuote);
  *       404:
  *         description: The quote was not found
  */
-quoteRoutes.delete("/v1/quote/:id", deleteQuote);
-
-
+quoteRoutes.delete("/api/v1/:id/quote", deleteQuote);
 
 export default quoteRoutes;

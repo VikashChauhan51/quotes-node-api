@@ -6,6 +6,8 @@ import logger from "./configs/logger.config";
 import { requestLogger } from "./middlewares/request-logger";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
+import cors from 'cors';
+import bodyParser  from 'body-parser';
 
 const options = {
   definition: {
@@ -30,10 +32,18 @@ const port = process.env.PORT || 3000;
 // configure middlewares
 app.use(requestLogger);
 app.use(errorHandler);
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 //configure routes
-app.use("/api/", quoteRoutes);
+app.use(quoteRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+// Enable CORS for all routes
+app.use(cors());
 
 //start server
 app.listen(port, () => {
