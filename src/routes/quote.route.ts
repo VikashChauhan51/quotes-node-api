@@ -8,6 +8,7 @@ import {
 } from "../controllers/quote.controller";
 
 import { quoteSchemaValidator } from "../schema-validators/quote-schema.validator";
+import { schemaValidator } from "../schema-validators/schema-validator";
 
 const quoteRoutes = express.Router();
 
@@ -106,7 +107,12 @@ quoteRoutes.get("/api/v1/:id/quote", getQuote);
  *             schema:
  *               $ref: '#/components/schemas/QuoteDetails'
  */
-quoteRoutes.post("/api/v1/quote", quoteSchemaValidator, () => createQuote);
+quoteRoutes.post(
+  "/api/v1/quote",
+  schemaValidator(quoteSchemaValidator),
+  createQuote
+);
+
 
 /**
  * @swagger
