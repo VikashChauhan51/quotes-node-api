@@ -7,8 +7,9 @@ import {
   deleteQuote,
 } from "../controllers/quote.controller";
 
-const quoteRoutes = express.Router();
+import { quoteSchemaValidator } from "../schema-validators/quote-schema.validator";
 
+const quoteRoutes = express.Router();
 
 /**
  * @swagger
@@ -41,8 +42,6 @@ const quoteRoutes = express.Router();
  *         - id
  *         - message
  */
-
-
 
 /**
  * @swagger
@@ -87,7 +86,6 @@ quoteRoutes.get("/api/v1/quote", getQuotes);
  */
 quoteRoutes.get("/api/v1/:id/quote", getQuote);
 
-
 /**
  * @swagger
  * /api/v1/quote:
@@ -108,7 +106,7 @@ quoteRoutes.get("/api/v1/:id/quote", getQuote);
  *             schema:
  *               $ref: '#/components/schemas/QuoteDetails'
  */
-quoteRoutes.post("/api/v1/quote", createQuote);
+quoteRoutes.post("/api/v1/quote", quoteSchemaValidator, () => createQuote);
 
 /**
  * @swagger
